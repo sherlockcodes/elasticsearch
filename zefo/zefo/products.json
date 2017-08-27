@@ -1,0 +1,12 @@
+{"index":{"_index":"mobile", "_type":"products", "_id": "1"}}
+{ "title":"Product 1", "description":"Product 1 Description", "brand":"Micromax", "price":8000, "displaysize":4.3, "ram": 2, "condition":"Gently Used Phones", "storage":16, "camera":8, "simtype":"Dual"}
+{"index":{"_index":"mobile", "_type":"products", "_id": "2"}}
+{ "title":"Product 2", "description":"Product 2 Description", "brand":"Micromax", "price":9000, "displaysize":4.8, "ram": 4, "condition":"Gently Used Phones", "storage":16, "camera":8, "simtype":"Dual"}
+{"index":{"_index":"mobile", "_type":"products", "_id": "3"}}
+{ "title":"Product 3", "description":"Product 3 Description", "brand":"Asus", "price":6000, "displaysize":4.3, "ram": 2, "condition":"Gently Used Phones", "storage":16, "camera":5, "simtype":"Dual"}
+{"index":{"_index":"mobile", "_type":"products", "_id": "4"}}
+{ "title":"Product 4", "description":"Product 4 Description", "brand":"Samsung", "price":28000, "displaysize":5.3, "ram": 4, "condition":"Unboxed Phones", "storage":16, "camera":12, "simtype":"Dual"}
+{"index":{"_index":"mobile", "_type":"products", "_id": "5"}}
+{ "title":"Product 5", "description":"Product 5 Description", "brand":"Lenovo", "price":5000, "displaysize":4.3, "ram": 2, "condition":"Gently Used Phones", "storage":8, "camera":8, "simtype":"Single"}
+{"index":{"_index":"mobile", "_type":"products", "_id": "6"}}
+{ "title":"Product 6", "description":"Product 6 Description", "brand":"Motorola", "price":18000, "displaysize":6.3, "ram": 4, "condition":"Well Used Phones", "storage":16, "camera":11, "simtype":"Dual"}

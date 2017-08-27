@@ -1,0 +1,141 @@
+
+delete index:
+=============
+
+curl -XDELETE 'localhost:9200/tv?pretty'
+
+get all:
+========
+
+curl -XGET 'localhost:9200/tv/_search?pretty' -d '
+{
+    "query" : {
+        "match_all" : {}
+    }
+}'
+
+delete:
+=======
+
+curl -XPOST 'localhost:9200/tv//_delete_by_query?conflicts=proceed&pretty' -d'
+{
+    "query": {
+        "match_all": {}
+    }
+}'
+
+
+simple querying:
+================
+curl -XGET 'localhost:9200/tv/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+  "query":{
+        "bool":{    
+            "must":[
+                {"terms":{"condition":["Unboxed","Unboxed Plus"]}},
+                {"terms":{"brand":["Sanyo"]}}
+            ] ,   
+            "should":[
+              { "range": { "price": { "gte": 10000, "lte": 13000 } } } ,
+              { "range": { "price": { "gte": 14000, "lte": 25000 } }}
+            ]
+        }
+  },
+  "aggs": {
+    "by_brand": {
+      "terms": {
+        "field": "brand"
+      }
+    },
+    "by_condition": {
+      "terms": {
+        "field": "condition"
+      }
+    }
+  }
+}'
+
+bulk upload:
+============
+curl -s -XPOST 'http://localhost:9200/_bulk' --data-binary @products.json
+
+
+curl -XGET 'localhost:9200/tv/_search?pretty' -H 'Content-Type: application/json' -d'
+{
+   "query" : {
+      "constant_score" : { 
+         "filter" : {
+            "bool" : {
+               "must":[
+                {"terms":{"condition":["Unboxed","Unboxed Plus"]}},
+                {"terms":{"brand":["Sanyo","infocus"]}},
+                {
+                "bool":{
+                  "should" : [
+                   { "range": { "price": { "gte": 10000, "lte": 13000 } } } ,
+                   { "range": { "price": { "gte": 14000, "lte": 18000 } } }
+                  ],
+                  "must":
+                  [
+                  {
+                    "bool":{
+                      "should":[
+                        { "range": { "size": { "gte": 28, "lte": 32 } } } ,
+                        { "range": { "size": { "gte": 34, "lte": 46 } }}
+                      ],
+                      "must":
+                      [
+                      {
+                        "bool":{
+                          "should":[
+                             { "range": { "dummy": { "gte": 100, "lte": 200 } } } ,
+                             { "range": { "size": { "gte": 300, "lte": 460} }}
+                          ]
+                        }
+                      }
+                      ]
+                    }
+                  }                    
+                  ]
+                }
+                }
+            ]
+           }
+         }
+      }
+    },
+  "aggs": {
+    "by_brand": {
+      "terms": {
+        "field": "brand"
+      }
+    },
+    "by_condition": {
+      "terms": {
+        "field": "condition"
+      }
+    }
+  }
+}'
+
+
+curl -XPUT 'localhost:9200/mobile' -d '{
+    "mappings": {
+        "doc": {
+            "properties": {
+                "condition" : {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "brand" : {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "simtype" : {
+                    "type": "string",
+                    "index": "not_analyzed"
+                }
+            }
+        }
+    }
+}'
