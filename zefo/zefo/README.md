@@ -41,5 +41,11 @@ project requests requests library.
 pip install requests 
 
 
+To read more about: 
+
+Read below blog :)
+
+https://medium.com/zefo-tech/elastic-search-from-beginner-to-intermediate-e4177c4c769f
+
 
  
